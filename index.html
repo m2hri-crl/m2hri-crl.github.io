@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
 
-  <!-- Nerfies CSS -->
+  <!-- Nerfies CSS (from template repo) -->
   <link rel="stylesheet" href="./static/css/bulma.min.css">
   <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
   <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
@@ -24,7 +24,7 @@
 
   <link rel="icon" href="./static/images/favicon.svg">
 
-  <!-- JS -->
+  <!-- JS (from template repo) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
   <script src="./static/js/bulma-carousel.min.js"></script>
@@ -43,127 +43,101 @@
     .demo-card img { width: 100%; border-radius: 12px; }
     .demo-cap { text-align: center; margin-top: 6px; font-weight: 600; }
     .table-wrap { overflow-x: auto; }
+    .section { padding-top: 2.5rem; padding-bottom: 2.5rem; }
   </style>
 </head>
 
 <body>
 
-<!-- ================= NAVBAR ================= -->
-<nav class="navbar" role="navigation">
-  <div class="navbar-menu is-active">
-    <div class="navbar-start" style="flex-grow:1; justify-content:center;">
-      <a class="navbar-item" href="https://github.com/prism-architecture/PRISM">
-        <span class="icon"><i class="fab fa-github"></i></span>
-      </a>
-      <a class="navbar-item" href="#BibTeX">BibTeX</a>
-    </div>
-  </div>
-</nav>
-
 <!-- ================= TITLE ================= -->
 <section class="hero">
   <div class="hero-body">
-    <div class="container is-max-desktop has-text-centered">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
 
-      <h1 class="title is-1 publication-title">
-        PRISM: A Vision-Language Architecture for Hierarchical Multi-Agent Coordination
-      </h1>
+          <h1 class="title is-1 publication-title">
+            PRISM: A Vision-Language Architecture for Hierarchical Multi-Agent Coordination
+          </h1>
 
-      <!-- AUTHOR BLOCK (COMMENTED FOR NOW) -->
-      <!--
-      <div class="is-size-5 publication-authors">
-        <span class="author-block">Author 1</span>,
-        <span class="author-block">Author 2</span>
+          <!-- AUTHORS (COMMENTED FOR NOW) -->
+          <!--
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Author 1</span>,
+            <span class="author-block">Author 2</span>,
+            <span class="author-block">Author 3</span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Affiliation(s)</span>
+          </div>
+          -->
+
+          <!-- LINKS (OPTIONAL — YOU CAN UNCOMMENT LATER) -->
+          <!--
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="PAPER_PDF_LINK"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="ARXIV_LINK"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/prism-architecture/PRISM"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code</span>
+                </a>
+              </span>
+            </div>
+          </div>
+          -->
+
+        </div>
       </div>
-      <div class="is-size-5 publication-authors">
-        <span class="author-block">Affiliation(s)</span>
-      </div>
-      -->
-
-      <div class="publication-links">
-        <span class="link-block">
-          <a href="https://github.com/prism-architecture/PRISM"
-             class="external-link button is-normal is-rounded is-dark">
-            <span class="icon"><i class="fab fa-github"></i></span>
-            <span>Code</span>
-          </a>
-        </span>
-      </div>
-
     </div>
   </div>
 </section>
 
 <!-- ================= TEASER IMAGE ================= -->
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body has-text-centered">
-      <img class="figure" src="./static/images/prism_example.png"
-           style="max-width:60%;" alt="PRISM teaser">
-    </div>
+<section class="section">
+  <div class="container is-max-desktop has-text-centered">
+    <img class="figure" src="./static/images/prism_example.png"
+         style="max-width:60%;" alt="PRISM teaser">
   </div>
 </section>
 
-<!-- TEASER VIDEO (COMMENTED FOR NOW) -->
-<!--
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <video autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser.mp4" type="video/mp4">
-      </video>
-    </div>
-  </div>
-</section>
--->
-
-<!-- ================= ANNOTATED REAL-ROBOT VIDEOS ================= -->
-<section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title is-4 has-text-centered">
-        Annotated Real-Robot Experiments (LLM Output + Object Segmentation)
-      </h2>
-
-      <div id="results-carousel" class="carousel results-carousel">
-
-        <div class="item">
-          <video autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/handover_annotated.mp4" type="video/mp4">
-          </video>
-          <p class="has-text-centered"><b>Shell Game (Annotated)</b></p>
-        </div>
-
-        <div class="item">
-          <video autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/put_in_drawer_annotated.mp4" type="video/mp4">
-          </video>
-          <p class="has-text-centered"><b>Put in Drawer (Annotated)</b></p>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= OVERVIEW ================= -->
+<!-- ================= ABSTRACT ================= -->
 <section class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Overview</h2>
-    <div class="content has-text-justified">
-      <p>
-        Multi-agent systems hold the promise of distributed, parallel execution in domains ranging from
-        manufacturing to assistive care. However, enabling multiple agents to follow natural language
-        instructions in dynamic environments remains a challenging problem due to the lack of mechanisms
-        for grounding language into temporally synchronized, vision-aware action plans.
-      </p>
-      <p>
-        To overcome these limitations, we present PRISM, a hierarchical vision-language architecture
-        that grounds natural language instructions into synchronized multi-agent workflows by dynamically
-        injecting synchronization constraints via predicate reasoning over multimodal observations and
-        execution history. We further introduce RLBench-COLLAB, a ten-task benchmark spanning sequential,
-        parallel, coupled, and behavior-aware coordination.
-      </p>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Multi-agent systems hold the promise of distributed, parallel execution in domains ranging from manufacturing
+            to assistive care. However, enabling multiple agents to follow natural language instructions in dynamic environments
+            remains a challenging problem due to the lack of mechanisms for grounding language into temporally synchronized,
+            vision-aware action plans. To overcome these limitations and enable robust coordination among multiple agents, we
+            present a hierarchical vision-language framework that grounds natural language instructions into synchronized multi-agent
+            workflows by dynamically injecting synchronization constraints via predicate reasoning over multimodal observations and
+            execution history. Additionally, to enable systematic evaluation of multi-agent coordination, we introduce RLBench-COLLAB,
+            an extended benchmark comprising ten two-robot manipulation tasks spanning sequential coordination, parallel coordination,
+            coupled interaction, and behavior-aware reasoning. Our extensive experiments suggest that the proposed method significantly
+            outperforms state-of-the-art planning frameworks, achieving an average task success rate of 72% and an average subtask success
+            rate of 89%. Our comprehensive evaluation and results demonstrate that the proposed method bridges the gap between adaptability
+            and temporal coordination in multi-agent systems, enabling scalable, real-time collaboration in dynamic, open-ended environments.
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -172,51 +146,186 @@
 <section class="section">
   <div class="container is-max-desktop has-text-centered">
     <h2 class="title is-3">RLBench-COLLAB Task Suite</h2>
-    <p>
-      A ten-task benchmark spanning Sequential, Parallel, Coupled, and Behavior-Aware coordination.
-    </p>
+    <div class="content has-text-justified">
+      <p>
+        We introduce RLBench-COLLAB—a ten-task benchmark spanning four categories: Sequential, Parallel, Coupled, and Behavior-Aware,
+        each testing language grounding, subtask scheduling, and inter-agent synchronization.
+      </p>
+    </div>
     <img class="figure" src="./static/images/rlbench_task_suit.png"
          style="max-width:60%;" alt="RLBench-COLLAB">
   </div>
 </section>
 
-<!-- ================= ARCHITECTURE ================= -->
+<!-- ================= PRISM ARCHITECTURE ================= -->
 <section class="section">
   <div class="container is-max-desktop has-text-centered">
     <h2 class="title is-3">PRISM Architecture</h2>
-    <p>Planning and Reasoning in Synchronized Multi-Agent Tasks.</p>
+    <div class="content has-text-justified">
+      <p>We propose PRISM: Planning and Reasoning in Synchronized Multi-agent tasks.</p>
+    </div>
     <img class="figure" src="./static/images/prism_framework.png"
          style="max-width:80%;" alt="PRISM framework">
   </div>
 </section>
 
-<!-- ================= TASK GIFS ================= -->
+<!-- ================= SUCCESSFUL TASK EXECUTION (SIM) ================= -->
 <section class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Successful Task Execution Examples</h2>
+    <h2 class="title is-3 has-text-centered">Successful Task Execution Examples (Simulation)</h2>
 
     <div class="demo-grid">
-      <div class="demo-card"><img src="./static/images/stack_block.gif"><div class="demo-cap">Stack Blocks</div></div>
-      <div class="demo-card"><img src="./static/images/pyramid_stacking.gif"><div class="demo-cap">Pyramid Stacking</div></div>
-      <div class="demo-card"><img src="./static/images/put_into_drawer.gif"><div class="demo-cap">Put in Drawer</div></div>
-      <div class="demo-card"><img src="./static/images/put_into_saucepan.gif"><div class="demo-cap">Put in Saucepan</div></div>
-      <div class="demo-card"><img src="./static/images/push_buttons.gif"><div class="demo-cap">Push Buttons</div></div>
-      <div class="demo-card"><img src="./static/images/shell_game.gif"><div class="demo-cap">Shell Game</div></div>
-      <div class="demo-card"><img src="./static/images/sort_items.gif"><div class="demo-cap">Sort Items</div></div>
-      <div class="demo-card"><img src="./static/images/handover_item.gif"><div class="demo-cap">Handover Item</div></div>
-      <div class="demo-card"><img src="./static/images/insert_ring.gif"><div class="demo-cap">Insert Ring</div></div>
-      <div class="demo-card"><img src="./static/images/push_box.gif"><div class="demo-cap">Push Box</div></div>
+      <div class="demo-card"><img src="./static/images/stack_block.gif" alt="Stack Blocks"><div class="demo-cap">Stack Blocks</div></div>
+      <div class="demo-card"><img src="./static/images/pyramid_stacking.gif" alt="Pyramid Stacking"><div class="demo-cap">Pyramid Stacking</div></div>
+      <div class="demo-card"><img src="./static/images/put_into_drawer.gif" alt="Put into Drawer"><div class="demo-cap">Put into Drawer</div></div>
+      <div class="demo-card"><img src="./static/images/put_into_saucepan.gif" alt="Put into Saucepan"><div class="demo-cap">Put into Saucepan</div></div>
+      <div class="demo-card"><img src="./static/images/push_buttons.gif" alt="Push Buttons"><div class="demo-cap">Push Buttons</div></div>
+
+      <div class="demo-card"><img src="./static/images/shell_game.gif" alt="Shell Game"><div class="demo-cap">Shell Game</div></div>
+      <div class="demo-card"><img src="./static/images/sort_items.gif" alt="Sort Items"><div class="demo-cap">Sort Items</div></div>
+      <div class="demo-card"><img src="./static/images/handover_item.gif" alt="Handover Item"><div class="demo-cap">Handover Item</div></div>
+      <div class="demo-card"><img src="./static/images/insert_ring.gif" alt="Insert Ring"><div class="demo-cap">Insert Ring</div></div>
+      <div class="demo-card"><img src="./static/images/push_box.gif" alt="Push Box"><div class="demo-cap">Push Box</div></div>
     </div>
   </div>
 </section>
 
-<!-- ================= RESULTS ================= -->
+<!-- ================= SIMULATION RESULTS (TABLES) ================= -->
 <section class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Experimental Results</h2>
+    <h2 class="title is-3 has-text-centered">Simulation Results</h2>
     <p class="has-text-centered"><i>Task Success (TS↑), #Subtasks (↑), Subtask Success (STS↑)</i></p>
+
     <div class="table-wrap content">
-      <!-- Paste your two HTML tables here -->
+
+      <!-- TABLE 1 -->
+      <table align="center">
+        <tr>
+          <th rowspan="2">Model</th>
+          <th colspan="6">Sequential Coordination</th>
+          <th colspan="9">Coupled Interaction</th>
+        </tr>
+        <tr>
+          <th colspan="3">Stack Blocks</th>
+          <th colspan="3">Pyramid Stacking</th>
+          <th colspan="3">Put in Saucepan</th>
+          <th colspan="3">Push Box Target</th>
+          <th colspan="3">Put in Drawer</th>
+        </tr>
+        <tr>
+          <td></td>
+          <td>TS</td><td>#ST</td><td>STS</td>
+          <td>TS</td><td>#ST</td><td>STS</td>
+          <td>TS</td><td>#ST</td><td>STS</td>
+          <td>TS</td><td>#ST</td><td>STS</td>
+          <td>TS</td><td>#ST</td><td>STS</td>
+        </tr>
+        <tr>
+          <td><b>Centralized Planner (Oracle)</b></td>
+          <td><b>0.80</b></td><td>10.9</td><td><b>1.00</b></td>
+          <td><b>0.60</b></td><td>11.0</td><td><b>0.90</b></td>
+          <td><b>0.80</b></td><td><b>8.0</b></td><td><b>0.93</b></td>
+          <td><b>1.00</b></td><td><b>16.0</b></td><td><b>1.00</b></td>
+          <td><b>1.00</b></td><td><b>10.0</b></td><td><b>1.00</b></td>
+        </tr>
+        <tr>
+          <td>VoxPoser</td>
+          <td>0.00</td><td>10.0</td><td>0.68</td>
+          <td>0.00</td><td><b>11.8</b></td><td>0.36</td>
+          <td>0.50</td><td>7.0</td><td>0.79</td>
+          <td>0.00</td><td>11.2</td><td>0.76</td>
+          <td>0.00</td><td>9.0</td><td>0.55</td>
+        </tr>
+        <tr>
+          <td><b>PRISM (Ours)</b></td>
+          <td><b>0.80</b></td><td><b>11.0</b></td><td>0.94</td>
+          <td><b>0.60</b></td><td>11.0</td><td>0.83</td>
+          <td>0.70</td><td><b>8.0</b></td><td>0.81</td>
+          <td>0.70</td><td>14.0</td><td>0.72</td>
+          <td>0.50</td><td>8.0</td><td>0.82</td>
+        </tr>
+      </table>
+
+      <br/>
+
+      <!-- TABLE 2 -->
+      <table align="center">
+        <tr>
+          <th rowspan="2">Model</th>
+          <th colspan="6">Parallel Coordination</th>
+          <th colspan="9">Behavior-Aware Reasoning</th>
+        </tr>
+        <tr>
+          <th colspan="3">Sort Items</th>
+          <th colspan="3">Push Buttons</th>
+          <th colspan="3">Insert Rings</th>
+          <th colspan="3">Shell Game</th>
+          <th colspan="3">Handover Item</th>
+        </tr>
+        <tr>
+          <td></td>
+          <td>TS</td><td>#ST</td><td>STS</td>
+          <td>TS</td><td>#ST</td><td>STS</td>
+          <td>TS</td><td>#ST</td><td>STS</td>
+          <td>TS</td><td>#ST</td><td>STS</td>
+          <td>TS</td><td>#ST</td><td>STS</td>
+        </tr>
+        <tr>
+          <td><b>Centralized Planner (Oracle)</b></td>
+          <td><b>0.90</b></td><td>10.0</td><td><b>0.99</b></td>
+          <td><b>1.00</b></td><td><b>8.0</b></td><td><b>1.00</b></td>
+          <td><b>1.00</b></td><td>8.0</td><td><b>1.00</b></td>
+          <td><b>0.90</b></td><td>9.4</td><td><b>0.98</b></td>
+          <td><b>1.00</b></td><td><b>12.0</b></td><td><b>1.00</b></td>
+        </tr>
+        <tr>
+          <td>VoxPoser</td>
+          <td>0.40</td><td><b>10.2</b></td><td>0.74</td>
+          <td>0.30</td><td>8.0</td><td>0.40</td>
+          <td>0.00</td><td>12.8</td><td>0.13</td>
+          <td>0.00</td><td><b>14.5</b></td><td>0.58</td>
+          <td>0.00</td><td>10.0</td><td>0.46</td>
+        </tr>
+        <tr>
+          <td><b>PRISM (Ours)</b></td>
+          <td><b>0.90</b></td><td>10.0</td><td>0.98</td>
+          <td><b>1.00</b></td><td><b>8.0</b></td><td><b>1.00</b></td>
+          <td>0.60</td><td><b>15.0</b></td><td>0.95</td>
+          <td>0.70</td><td>13.0</td><td>0.96</td>
+          <td>0.70</td><td><b>12.0</b></td><td>0.91</td>
+        </tr>
+      </table>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= REAL-ROBOT (AFTER SIM RESULTS) ================= -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Annotated Real-Robot Experiments</h2>
+    <p class="has-text-centered"><i>LLM Output + Object Segmentation</i></p>
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <div id="robot-carousel" class="carousel results-carousel">
+
+          <div class="item">
+            <video autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/handover_annotated.mp4" type="video/mp4">
+            </video>
+            <p class="has-text-centered" style="margin-top: 8px;"><b>Shell Game (Annotated)</b></p>
+          </div>
+
+          <div class="item">
+            <video autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/put_in_drawer_annotated.mp4" type="video/mp4">
+            </video>
+            <p class="has-text-centered" style="margin-top: 8px;"><b>Put in Drawer (Annotated)</b></p>
+          </div>
+
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -235,11 +344,13 @@
 </section>
 
 <footer class="footer">
-  <div class="container has-text-centered">
-    <p>
-      Website adapted from the
-      <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> template.
-    </p>
+  <div class="container">
+    <div class="content has-text-centered">
+      <p>
+        Website adapted from the
+        <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> template.
+      </p>
+    </div>
   </div>
 </footer>
 
