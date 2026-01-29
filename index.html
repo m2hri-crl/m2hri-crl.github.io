@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PRSM: A Vision-Language Architecture for Hierarchical Multi-Agent Coordination</title>
+  <title>PRISM: A Vision-Language Architecture for Hierarchical Multi-Agent Coordination</title>
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
 
   <!-- Nerfies CSS -->
   <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <!-- KEEP these existing styles you already use -->
   <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
   <link rel="icon" href="./static/images/favicon.svg">
@@ -17,7 +17,6 @@
   <!-- JS -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/index.js"></script>
 
   <style>
@@ -35,7 +34,7 @@
 
     .section { padding-top: 2.5rem; padding-bottom: 2.5rem; }
 
-    /* Shared width container (Real-world + Simulation slider MUST match this) */
+    /* Shared width container */
     .content-wrap {
       max-width: var(--content-max);
       margin: 0 auto;
@@ -126,28 +125,6 @@
       object-fit: contain;
     }
 
-    /* ===================== SIMULATION SLIDER CONTENT (inside each slide) ===================== */
-    .sim-slide {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      column-gap: 24px;   /* horizontal gap between images */
-      row-gap: 28px;      /* vertical gap between rows */
-      padding: 12px 0;
-      box-sizing: border-box;
-    }
-    .sim-slide img {
-      width: 100%;
-      display: block;
-      border-radius: var(--radius-rect);
-    }
-    .sim-cap {
-      margin-top: 8px;
-      font-size: 0.95rem;
-      font-weight: 400;
-      text-align: center;
-      color: #111827;
-    }
-
     /* ===================== TABLES ===================== */
     .table-wrap {
       max-width: var(--content-max);
@@ -171,66 +148,70 @@
       background: #f7f7f7;
       font-weight: 700;
     }
-
     .muted { color: #6b7280; }
 
-    /* =======================================================================
-       FINAL FIXES (PUT AT END): 
-       (1) Carousel width must match content-wrap (kill any 100vw/negative margin)
-       (2) Add horizontal GAP BETWEEN slides (panels), not inside grid
-       ======================================================================= */
-
-    /* Wrap to force same width as Real-World section */
-    .sim-carousel-wrap{
-      max-width: var(--content-max);
-      margin: 0 auto;
+    /* ======================================================================
+       LOCAL SIMULATION SLIDER (NO bulma-carousel): fixed width + real gap
+       ====================================================================== */
+    .sim-slider {
+      width: 100%;              /* EXACTLY matches content-wrap */
+      position: relative;
+      overflow: hidden;         /* prevents full-page overflow */
+      margin-top: 0.75rem;
     }
 
-    /* Kill any full-bleed behavior from template/carousel css */
-    #sim-carousel.carousel{
-      width: 100% !important;         /* 100% of content-wrap */
-      max-width: 100% !important;
-      margin-left: 0 !important;
-      margin-right: 0 !important;
-      left: auto !important;
-      right: auto !important;
-      transform: none !important;
-      position: relative !important;
-      box-sizing: border-box !important;
+    .sim-track {
+      display: flex;
+      gap: 24px;                /* ✅ gap BETWEEN slides */
+      transition: transform 320ms ease;
+      will-change: transform;
     }
 
-    #sim-carousel .carousel-container,
-    #sim-carousel .carousel-content{
-      width: 100% !important;
-      max-width: 100% !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      overflow: hidden !important;
-      box-sizing: border-box !important;
+    .sim-panel {
+      flex: 0 0 100%;           /* one panel visible at a time */
+      box-sizing: border-box;
     }
 
-    /* Add a visible gap BETWEEN slides */
-    #sim-carousel .carousel-item{
-      padding: 0 18px !important;    /* slide-to-slide gap */
-      box-sizing: border-box !important;
+    /* 2x3 grid inside each slide */
+    .sim-slide {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      column-gap: 24px;         /* ✅ horizontal gap between images */
+      row-gap: 28px;            /* ✅ vertical gap between rows */
+      padding: 8px 0;
+      box-sizing: border-box;
+    }
+    .sim-slide img {
+      width: 100%;
+      display: block;
+      border-radius: var(--radius-rect);
+    }
+    .sim-cap {
+      margin-top: 8px;
+      font-size: 0.95rem;
+      font-weight: 400;
+      text-align: center;
+      color: #111827;
     }
 
-    /* Ensure nav stays inside the carousel box */
-    #sim-carousel .carousel-navigation{
-      position: absolute !important;
-      left: 0 !important;
-      right: 0 !important;
-      top: 50% !important;
-      transform: translateY(-50%) !important;
-      width: 100% !important;
-      margin: 0 !important;
-      z-index: 10 !important;
-      pointer-events: none !important;
+    /* arrows */
+    .sim-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 1px solid #e5e7eb;
+      background: rgba(255,255,255,0.92);
+      border-radius: 999px;
+      width: 38px;
+      height: 38px;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      user-select: none;
+      z-index: 10;
     }
-    #sim-carousel .carousel-nav-left,
-    #sim-carousel .carousel-nav-right{
-      pointer-events: auto !important;
-    }
+    .sim-arrow.left { left: 8px; }
+    .sim-arrow.right { right: 8px; }
   </style>
 </head>
 
@@ -359,11 +340,15 @@
 
     <h3 class="subsection-title">Successful Task Execution Examples</h3>
 
-    <!-- IMPORTANT: wrapped to force same width as Real-World section -->
-    <div class="sim-carousel-wrap">
-      <div id="sim-carousel" class="carousel">
-        <!-- Slide 1 (2x3) -->
-        <div class="item">
+    <!-- LOCAL SLIDER: same width as Real-World (inside content-wrap) -->
+    <div class="sim-slider" id="sim-slider">
+      <button class="sim-arrow left" id="sim-prev" aria-label="Previous">&#8249;</button>
+      <button class="sim-arrow right" id="sim-next" aria-label="Next">&#8250;</button>
+
+      <div class="sim-track" id="sim-track">
+
+        <!-- Slide 1 (6 items) -->
+        <div class="sim-panel">
           <div class="sim-slide">
             <div><img src="./static/images/stack_block.gif" alt="Stack Blocks"><div class="sim-cap">Stack Blocks</div></div>
             <div><img src="./static/images/pyramid_stacking.gif" alt="Pyramid Stacking"><div class="sim-cap">Pyramid Stacking</div></div>
@@ -375,8 +360,8 @@
           </div>
         </div>
 
-        <!-- Slide 2 (wrap 1–2) -->
-        <div class="item">
+        <!-- Slide 2 (4 + wrap 2) -->
+        <div class="sim-panel">
           <div class="sim-slide">
             <div><img src="./static/images/sort_items.gif" alt="Sort Items"><div class="sim-cap">Sort Items</div></div>
             <div><img src="./static/images/handover_item.gif" alt="Handover Item"><div class="sim-cap">Handover Item</div></div>
@@ -387,6 +372,7 @@
             <div><img src="./static/images/pyramid_stacking.gif" alt="Pyramid Stacking"><div class="sim-cap">Pyramid Stacking</div></div>
           </div>
         </div>
+
       </div>
     </div>
 
@@ -509,20 +495,42 @@
 </footer>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    if (window.bulmaCarousel && bulmaCarousel.attach) {
-      bulmaCarousel.attach('#sim-carousel', {
-        slidesToScroll: 1,
-        slidesToShow: 1,
-        infinite: true,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        pauseOnHover: true,
-        navigation: true,
-        pagination: false
-      });
+  (function () {
+    const slider = document.getElementById('sim-slider');
+    const track = document.getElementById('sim-track');
+    const prev = document.getElementById('sim-prev');
+    const next = document.getElementById('sim-next');
+    if (!slider || !track || !prev || !next) return;
+
+    const panels = Array.from(track.querySelectorAll('.sim-panel'));
+    const GAP = 24; // must match .sim-track gap
+    let idx = 0;
+
+    function update() {
+      const w = slider.clientWidth;
+      track.style.transform = `translateX(${-idx * (w + GAP)}px)`;
     }
-  });
+
+    prev.addEventListener('click', () => {
+      idx = (idx - 1 + panels.length) % panels.length;
+      update();
+    });
+
+    next.addEventListener('click', () => {
+      idx = (idx + 1) % panels.length;
+      update();
+    });
+
+    window.addEventListener('resize', update);
+
+    // autoplay
+    setInterval(() => {
+      idx = (idx + 1) % panels.length;
+      update();
+    }, 3000);
+
+    update();
+  })();
 </script>
 
 </body>
