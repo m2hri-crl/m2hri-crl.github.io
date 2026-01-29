@@ -25,7 +25,7 @@
       --content-max: 1100px;
 
       /* Teaser width control (wider) */
-      --teaser-max: 1200px;
+      --teaser-max: 90vw;
       --teaser-gap: 18px;
 
       /* Corners */
@@ -131,28 +131,36 @@
       object-fit: contain;
     }
 
-    /* ===================== SIMULATION (2 rows x 5) ===================== */
-    .sim-grid {
+    
+    /* ===== Simulation slider: 2x5 grid per slide ===== */
+    .sim-slide {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 18px 16px;
-      margin-top: 0.75rem;
+      gap: 22px 20px;        /* larger, cleaner spacing */
+      padding: 12px 8px;
     }
-    @media (max-width: 1200px) { .sim-grid { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 768px)  { .sim-grid { grid-template-columns: repeat(2, 1fr); } }
-
-    .sim-item img {
+    
+    .sim-slide img {
       width: 100%;
       display: block;
       border-radius: var(--radius-rect);
     }
+    
     .sim-cap {
-      margin-top: 8px;
+      margin-top: 10px;
       font-size: 0.95rem;
       font-weight: 400;
       text-align: center;
       color: #111827;
     }
+    
+    /* Keep carousel controls subtle */
+    .carousel-navigation {
+      opacity: 0.7;
+    }
+
+
+    
 
     /* Tables: centered, not full width; scroll on small screens */
     .table-wrap {
@@ -305,21 +313,29 @@
            style="max-width: 900px; width: 100%; border-radius: var(--radius-rect);">
     </div>
 
-    <h3 class="subsection-title">Successful Task Execution Examples</h3>
+   <h3 class="subsection-title">Successful Task Execution Examples</h3>
 
-    <div class="sim-grid">
-      <div class="sim-item"><img src="./static/images/stack_block.gif" alt="Stack Blocks"><div class="sim-cap">Stack Blocks</div></div>
-      <div class="sim-item"><img src="./static/images/pyramid_stacking.gif" alt="Pyramid Stacking"><div class="sim-cap">Pyramid Stacking</div></div>
-      <div class="sim-item"><img src="./static/images/put_into_drawer.gif" alt="Put into Drawer"><div class="sim-cap">Put into Drawer</div></div>
-      <div class="sim-item"><img src="./static/images/put_into_saucepan.gif" alt="Put into Saucepan"><div class="sim-cap">Put into Saucepan</div></div>
-      <div class="sim-item"><img src="./static/images/push_buttons.gif" alt="Push Buttons"><div class="sim-cap">Push Buttons</div></div>
-
-      <div class="sim-item"><img src="./static/images/shell_game.gif" alt="Shell Game"><div class="sim-cap">Shell Game</div></div>
-      <div class="sim-item"><img src="./static/images/sort_items.gif" alt="Sort Items"><div class="sim-cap">Sort Items</div></div>
-      <div class="sim-item"><img src="./static/images/handover_item.gif" alt="Handover Item"><div class="sim-cap">Handover Item</div></div>
-      <div class="sim-item"><img src="./static/images/insert_ring.gif" alt="Insert Ring"><div class="sim-cap">Insert Ring</div></div>
-      <div class="sim-item"><img src="./static/images/push_box.gif" alt="Push Box"><div class="sim-cap">Push Box</div></div>
+  <div id="sim-carousel" class="carousel">
+  
+    <!-- Slide 1 -->
+    <div class="item">
+      <div class="sim-slide">
+        <div><img src="./static/images/stack_block.gif"><div class="sim-cap">Stack Blocks</div></div>
+        <div><img src="./static/images/pyramid_stacking.gif"><div class="sim-cap">Pyramid Stacking</div></div>
+        <div><img src="./static/images/put_into_drawer.gif"><div class="sim-cap">Put into Drawer</div></div>
+        <div><img src="./static/images/put_into_saucepan.gif"><div class="sim-cap">Put into Saucepan</div></div>
+        <div><img src="./static/images/push_buttons.gif"><div class="sim-cap">Push Buttons</div></div>
+  
+        <div><img src="./static/images/shell_game.gif"><div class="sim-cap">Shell Game</div></div>
+        <div><img src="./static/images/sort_items.gif"><div class="sim-cap">Sort Items</div></div>
+        <div><img src="./static/images/handover_item.gif"><div class="sim-cap">Handover Item</div></div>
+        <div><img src="./static/images/insert_ring.gif"><div class="sim-cap">Insert Ring</div></div>
+        <div><img src="./static/images/push_box.gif"><div class="sim-cap">Push Box</div></div>
+      </div>
     </div>
+  
+  </div>
+
 
     <h3 class="subsection-title">Quantitative Results</h3>
 
@@ -438,6 +454,20 @@
     </div>
   </div>
 </footer>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    bulmaCarousel.attach('#sim-carousel', {
+      slidesToScroll: 1,
+      slidesToShow: 1,
+      infinite: false,
+      autoplay: false,
+      navigation: true,
+      pagination: false,
+    });
+  });
+</script>
+
 
 </body>
 </html>
