@@ -194,24 +194,52 @@
       color: #111827;
     }
 
-    /* arrows */
-    .sim-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      border: 1px solid #e5e7eb;
-      background: rgba(255,255,255,0.92);
-      border-radius: 999px;
-      width: 38px;
-      height: 38px;
-      cursor: pointer;
-      display: grid;
-      place-items: center;
-      user-select: none;
-      z-index: 10;
-    }
-    .sim-arrow.left { left: 8px; }
-    .sim-arrow.right { right: 8px; }
+    /* ===== Slider arrows: circular + thin arrow (Nerfies-style) ===== */
+  .sim-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    user-select: none;
+  }
+  
+  .sim-arrow.left  { left: -22px; }
+  .sim-arrow.right { right: -22px; }
+  
+  .sim-arrow::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-top: 2px solid #374151;
+    border-right: 2px solid #374151;
+    display: block;
+  }
+  
+  .sim-arrow.left::before {
+    transform: rotate(-135deg);
+    margin-left: 2px;
+  }
+  
+  .sim-arrow.right::before {
+    transform: rotate(45deg);
+    margin-right: 2px;
+  }
+  
+  .sim-arrow:hover {
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  }
+
   </style>
 </head>
 
@@ -505,31 +533,40 @@
     const panels = Array.from(track.querySelectorAll('.sim-panel'));
     const GAP = 24; // must match .sim-track gap
     let idx = 0;
+    let timer = null;
 
-    function update() {
+    function update(animate = true) {
       const w = slider.clientWidth;
+      track.style.transition = animate ? 'transform 320ms ease' : 'none';
       track.style.transform = `translateX(${-idx * (w + GAP)}px)`;
     }
 
-    prev.addEventListener('click', () => {
-      idx = (idx - 1 + panels.length) % panels.length;
-      update();
-    });
+    function nextSlide() {
+      idx++;
+      if (idx >= panels.length) {
+        idx = 0;
+        update(false); // jump back instantly
+        requestAnimationFrame(() => update(true));
+      } else {
+        update(true);
+      }
+    }
 
-    next.addEventListener('click', () => {
-      idx = (idx + 1) % panels.length;
-      update();
-    });
+    function prevSlide() {
+      idx--;
+      if (idx < 0) idx = panels.length - 1;
+      update(true);
+    }
 
-    window.addEventListener('resize', update);
+    next.addEventListener('click', nextSlide);
+    prev.addEventListener('click', prevSlide);
 
-    // autoplay
-    setInterval(() => {
-      idx = (idx + 1) % panels.length;
-      update();
-    }, 3000);
+    window.addEventListener('resize', () => update(false));
 
-    update();
+    // autoplay: ALWAYS moves left
+    timer = setInterval(nextSlide, 3000);
+
+    update(false);
   })();
 </script>
 
