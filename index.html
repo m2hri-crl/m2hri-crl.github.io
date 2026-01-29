@@ -7,9 +7,8 @@
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
 
-  <!-- Nerfies CSS -->
+  <!-- Nerfies / Bulma CSS -->
   <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <!-- KEEP these existing styles you already use -->
   <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
   <link rel="icon" href="./static/images/favicon.svg">
@@ -151,15 +150,23 @@
     .muted { color: #6b7280; }
 
     /* ======================================================================
-       LOCAL SIMULATION SLIDER (NO bulma-carousel): fixed width + real gap
+       LOCAL SIMULATION SLIDER (drop-in): fixed width + real gap + good arrows
        ====================================================================== */
+
+    /* Outer slider must NOT clip arrows */
     .sim-slider {
       width: 100%;              /* EXACTLY matches content-wrap */
       position: relative;
-      overflow: hidden;         /* prevents full-page overflow */
+      overflow: visible;        /* arrows won't be cut */
       margin-top: 0.75rem;
     }
 
+    /* This clips only the sliding content */
+    .sim-viewport {
+      overflow: hidden;
+    }
+
+    /* Track with real gap between slides */
     .sim-track {
       display: flex;
       gap: 24px;                /* ✅ gap BETWEEN slides */
@@ -181,11 +188,13 @@
       padding: 8px 0;
       box-sizing: border-box;
     }
+
     .sim-slide img {
       width: 100%;
       display: block;
       border-radius: var(--radius-rect);
     }
+
     .sim-cap {
       margin-top: 8px;
       font-size: 0.95rem;
@@ -194,52 +203,41 @@
       color: #111827;
     }
 
-    /* ===== Slider arrows: circular + thin arrow (Nerfies-style) ===== */
-  .sim-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid #e5e7eb;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 10;
-    user-select: none;
-  }
-  
-  .sim-arrow.left  { left: -22px; }
-  .sim-arrow.right { right: -22px; }
-  
-  .sim-arrow::before {
-    content: '';
-    width: 8px;
-    height: 8px;
-    border-top: 2px solid #374151;
-    border-right: 2px solid #374151;
-    display: block;
-  }
-  
-  .sim-arrow.left::before {
-    transform: rotate(-135deg);
-    margin-left: 2px;
-  }
-  
-  .sim-arrow.right::before {
-    transform: rotate(45deg);
-    margin-right: 2px;
-  }
-  
-  .sim-arrow:hover {
-    background: #ffffff;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-  }
+    /* Circular arrows with thin chevrons (stylish) */
+    .sim-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      z-index: 10;
+      padding: 0;
+      user-select: none;
+    }
+    .sim-arrow.left  { left: -22px; }
+    .sim-arrow.right { right: -22px; }
 
+    .sim-arrow:hover {
+      background: #ffffff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+    }
+
+    .chev {
+      width: 10px;
+      height: 10px;
+      border-top: 2px solid #374151;
+      border-right: 2px solid #374151;
+      display: inline-block;
+    }
+    .chev.left  { transform: rotate(-135deg); margin-left: 2px; }
+    .chev.right { transform: rotate(45deg);  margin-right: 2px; }
   </style>
 </head>
 
@@ -249,9 +247,7 @@
 <section class="hero">
   <div class="hero-body">
     <div class="content-wrap has-text-centered">
-      <h1 class="title">
-        PRISM: A Vision-Language Architecture for Hierarchical Multi-Agent Coordination
-      </h1>
+      <h1 class="title">PRISM: A Vision-Language Architecture for Hierarchical Multi-Agent Coordination</h1>
 
       <div style="margin-top: 10px;">
         <a href="https://github.com/prism-architecture/PRISM" class="button is-dark is-rounded">
@@ -270,7 +266,6 @@
       <video autoplay muted loop playsinline class="teaser-video">
         <source src="./static/videos/handover_annotated.mp4" type="video/mp4">
       </video>
-
       <video autoplay muted loop playsinline class="teaser-video">
         <source src="./static/videos/open_drawer_annotated.mp4" type="video/mp4">
       </video>
@@ -308,10 +303,8 @@
   <div class="content-wrap">
     <h2 class="section-title">PRISM Architecture</h2>
     <p class="section-note">Overview of the hierarchical planning and synchronization pipeline.</p>
-
     <div class="has-text-centered">
-      <img src="./static/images/prism_framework.png"
-           style="max-width: 900px; width: 100%; border-radius: var(--radius-rect);">
+      <img src="./static/images/prism_framework.png" style="max-width: 900px; width: 100%; border-radius: var(--radius-rect);">
     </div>
   </div>
 </section>
@@ -324,7 +317,7 @@
 
     <div class="columns is-multiline is-centered is-variable is-4">
       <div class="column is-one-quarter has-text-centered">
-        <div class="task-cap">Stack blocks on the stacking plane</div>
+        <div class="task-cap">Stack two blocks</div>
         <video autoplay muted loop playsinline controls class="task-video">
           <source src="./static/videos/stack_blocks.mp4" type="video/mp4">
         </video>
@@ -345,7 +338,7 @@
       </div>
 
       <div class="column is-one-quarter has-text-centered">
-        <div class="task-cap">Sort the item into trays</div>
+        <div class="task-cap">Sort the item into the correct location</div>
         <video autoplay muted loop playsinline controls class="task-video">
           <source src="./static/videos/sort_items.mp4" type="video/mp4">
         </video>
@@ -362,45 +355,45 @@
     <h3 class="subsection-title">Simulation in RLBench</h3>
     <p class="muted" style="margin-bottom: 0.75rem;">RLBench-COLLAB task suite used for evaluation.</p>
     <div class="has-text-centered" style="margin-bottom: 1.25rem;">
-      <img src="./static/images/rlbench_task_suit.png"
-           style="max-width: 900px; width: 100%; border-radius: var(--radius-rect);">
+      <img src="./static/images/rlbench_task_suit.png" style="max-width: 900px; width: 100%; border-radius: var(--radius-rect);">
     </div>
 
     <h3 class="subsection-title">Successful Task Execution Examples</h3>
 
-    <!-- LOCAL SLIDER: same width as Real-World (inside content-wrap) -->
+    <!-- LOCAL SLIDER (drop-in) -->
     <div class="sim-slider" id="sim-slider">
-      <button class="sim-arrow left" id="sim-prev" aria-label="Previous">&#8249;</button>
-      <button class="sim-arrow right" id="sim-next" aria-label="Next">&#8250;</button>
+      <button class="sim-arrow left" id="sim-prev" aria-label="Previous"><span class="chev left"></span></button>
+      <button class="sim-arrow right" id="sim-next" aria-label="Next"><span class="chev right"></span></button>
 
-      <div class="sim-track" id="sim-track">
+      <div class="sim-viewport">
+        <div class="sim-track" id="sim-track">
+          <!-- Slide 1 (6 items) -->
+          <div class="sim-panel">
+            <div class="sim-slide">
+              <div><img src="./static/images/stack_block.gif" alt="Stack Blocks"><div class="sim-cap">Stack Blocks</div></div>
+              <div><img src="./static/images/pyramid_stacking.gif" alt="Pyramid Stacking"><div class="sim-cap">Pyramid Stacking</div></div>
+              <div><img src="./static/images/put_into_drawer.gif" alt="Put into Drawer"><div class="sim-cap">Put into Drawer</div></div>
 
-        <!-- Slide 1 (6 items) -->
-        <div class="sim-panel">
-          <div class="sim-slide">
-            <div><img src="./static/images/stack_block.gif" alt="Stack Blocks"><div class="sim-cap">Stack Blocks</div></div>
-            <div><img src="./static/images/pyramid_stacking.gif" alt="Pyramid Stacking"><div class="sim-cap">Pyramid Stacking</div></div>
-            <div><img src="./static/images/put_into_drawer.gif" alt="Put into Drawer"><div class="sim-cap">Put into Drawer</div></div>
-
-            <div><img src="./static/images/put_into_saucepan.gif" alt="Put into Saucepan"><div class="sim-cap">Put into Saucepan</div></div>
-            <div><img src="./static/images/push_buttons.gif" alt="Push Buttons"><div class="sim-cap">Push Buttons</div></div>
-            <div><img src="./static/images/shell_game.gif" alt="Shell Game"><div class="sim-cap">Shell Game</div></div>
+              <div><img src="./static/images/put_into_saucepan.gif" alt="Put into Saucepan"><div class="sim-cap">Put into Saucepan</div></div>
+              <div><img src="./static/images/push_buttons.gif" alt="Push Buttons"><div class="sim-cap">Push Buttons</div></div>
+              <div><img src="./static/images/shell_game.gif" alt="Shell Game"><div class="sim-cap">Shell Game</div></div>
+            </div>
           </div>
-        </div>
 
-        <!-- Slide 2 (4 + wrap 2) -->
-        <div class="sim-panel">
-          <div class="sim-slide">
-            <div><img src="./static/images/sort_items.gif" alt="Sort Items"><div class="sim-cap">Sort Items</div></div>
-            <div><img src="./static/images/handover_item.gif" alt="Handover Item"><div class="sim-cap">Handover Item</div></div>
-            <div><img src="./static/images/insert_ring.gif" alt="Insert Ring"><div class="sim-cap">Insert Ring</div></div>
+          <!-- Slide 2 (4 + wrap 2) -->
+          <div class="sim-panel">
+            <div class="sim-slide">
+              <div><img src="./static/images/sort_items.gif" alt="Sort Items"><div class="sim-cap">Sort Items</div></div>
+              <div><img src="./static/images/handover_item.gif" alt="Handover Item"><div class="sim-cap">Handover Item</div></div>
+              <div><img src="./static/images/insert_ring.gif" alt="Insert Ring"><div class="sim-cap">Insert Ring</div></div>
 
-            <div><img src="./static/images/push_box.gif" alt="Push Box"><div class="sim-cap">Push Box</div></div>
-            <div><img src="./static/images/stack_block.gif" alt="Stack Blocks"><div class="sim-cap">Stack Blocks</div></div>
-            <div><img src="./static/images/pyramid_stacking.gif" alt="Pyramid Stacking"><div class="sim-cap">Pyramid Stacking</div></div>
+              <div><img src="./static/images/push_box.gif" alt="Push Box"><div class="sim-cap">Push Box</div></div>
+              <div><img src="./static/images/stack_block.gif" alt="Stack Blocks"><div class="sim-cap">Stack Blocks</div></div>
+              <div><img src="./static/images/pyramid_stacking.gif" alt="Pyramid Stacking"><div class="sim-cap">Pyramid Stacking</div></div>
+            </div>
           </div>
-        </div>
 
+        </div>
       </div>
     </div>
 
@@ -522,6 +515,7 @@
   </div>
 </footer>
 
+<!-- ================= LOCAL SLIDER JS ================= -->
 <script>
   (function () {
     const slider = document.getElementById('sim-slider');
@@ -535,38 +529,46 @@
     let idx = 0;
     let timer = null;
 
-    function update(animate = true) {
+    function setTransform(animate = true) {
       const w = slider.clientWidth;
       track.style.transition = animate ? 'transform 320ms ease' : 'none';
       track.style.transform = `translateX(${-idx * (w + GAP)}px)`;
     }
 
-    function nextSlide() {
-      idx++;
+    // auto = always go "next" (slides move left)
+    function goNext(fromAuto = false) {
+      idx += 1;
       if (idx >= panels.length) {
         idx = 0;
-        update(false); // jump back instantly
-        requestAnimationFrame(() => update(true));
+        // wrap cleanly without reverse motion
+        setTransform(false);
+        requestAnimationFrame(() => setTransform(true));
       } else {
-        update(true);
+        setTransform(true);
       }
     }
 
-    function prevSlide() {
-      idx--;
+    // click left = go previous (slides move right)
+    function goPrev() {
+      idx -= 1;
       if (idx < 0) idx = panels.length - 1;
-      update(true);
+      setTransform(true);
     }
 
-    next.addEventListener('click', nextSlide);
-    prev.addEventListener('click', prevSlide);
+    next.addEventListener('click', () => {
+      goNext(false);
+    });
 
-    window.addEventListener('resize', () => update(false));
+    prev.addEventListener('click', () => {
+      goPrev();
+    });
 
-    // autoplay: ALWAYS moves left
-    timer = setInterval(nextSlide, 3000);
+    window.addEventListener('resize', () => setTransform(false));
 
-    update(false);
+    // autoplay (always left)
+    timer = setInterval(() => goNext(true), 3000);
+
+    setTransform(false);
   })();
 </script>
 
