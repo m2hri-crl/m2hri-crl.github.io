@@ -520,57 +520,116 @@
   (function () {
     const slider = document.getElementById('sim-slider');
     const track = document.getElementById('sim-track');
-    const prev = document.getElementById('sim-prev');
-    const next = document.getElementById('sim-next');
-    if (!slider || !track || !prev || !next) return;
+    const prevBtn = document.getElementById('sim-prev');
+    const nextBtn = document.getElementById('sim-next');
 
-    const panels = Array.from(track.querySelectorAll('.sim-panel'));
-    const GAP = 24; // must match .sim-track gap
-    let idx = 0;
-    let timer = null;
+    if (!slider || !track || !prevBtn || !nextBtn) return;
 
-    function setTransform(animate = true) {
+    const GAP = 24;          // must match .sim-track gap in CSS
+    const SPEED_MS = 380;    // smooth transition speed
+    const AUTO_MS = 4000;    // ✅ autoplay interval (increase/decrease)
+    const RESUME_AFTER_MS = 4000; // ✅ after click, wait before resuming autoplay
+
+    // Original panels
+    const originalPanels = Array.from(track.querySelectorAll('.sim-panel'));
+    const realCount = originalPanels.length;
+    if (realCount < 2) return;
+
+    // Clone last to front and first to end (seamless infinite)
+    const firstClone = originalPanels[0].cloneNode(true);
+    const lastClone  = originalPanels[realCount - 1].cloneNode(true);
+    firstClone.classList.add('is-clone');
+    lastClone.classList.add('is-clone');
+
+    track.insertBefore(lastClone, track.firstChild);
+    track.appendChild(firstClone);
+
+    // Start at first REAL slide (index 1, because 0 is lastClone)
+    let idx = 1;
+    let animating = false;
+
+    function setTransform(animate) {
       const w = slider.clientWidth;
-      track.style.transition = animate ? 'transform 320ms ease' : 'none';
+      track.style.transition = animate ? `transform ${SPEED_MS}ms ease` : 'none';
       track.style.transform = `translateX(${-idx * (w + GAP)}px)`;
     }
 
-    // auto = always go "next" (slides move left)
-    function goNext(fromAuto = false) {
+    function goNext() {
+      if (animating) return;
+      animating = true;
       idx += 1;
-      if (idx >= panels.length) {
-        idx = 0;
-        // wrap cleanly without reverse motion
-        setTransform(false);
-        requestAnimationFrame(() => setTransform(true));
-      } else {
-        setTransform(true);
-      }
-    }
-
-    // click left = go previous (slides move right)
-    function goPrev() {
-      idx -= 1;
-      if (idx < 0) idx = panels.length - 1;
       setTransform(true);
     }
 
-    next.addEventListener('click', () => {
-      goNext(false);
+    function goPrev() {
+      if (animating) return;
+      animating = true;
+      idx -= 1;
+      setTransform(true);
+    }
+
+    // Snap after reaching clones (no visual jump)
+    track.addEventListener('transitionend', () => {
+      animating = false;
+
+      // onto firstClone
+      if (idx === realCount + 1) {
+        idx = 1;
+        setTransform(false);
+      }
+
+      // onto lastClone
+      if (idx === 0) {
+        idx = realCount;
+        setTransform(false);
+      }
     });
 
-    prev.addEventListener('click', () => {
+    // ---- Autoplay control (click overrides autoplay) ----
+    let autoTimer = null;
+    let resumeTimer = null;
+
+    function stopAuto() {
+      if (autoTimer) clearInterval(autoTimer);
+      autoTimer = null;
+    }
+
+    function startAuto() {
+      if (autoTimer) clearInterval(autoTimer);
+      autoTimer = setInterval(() => {
+        goNext(); // always slides left
+      }, AUTO_MS);
+    }
+
+    function scheduleResumeAuto() {
+      if (resumeTimer) clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(() => {
+        startAuto();
+      }, RESUME_AFTER_MS);
+    }
+
+    // Buttons: click cancels autoplay immediately, does one move, then resume later
+    nextBtn.addEventListener('click', () => {
+      stopAuto();
+      goNext();
+      scheduleResumeAuto();
+    });
+
+    prevBtn.addEventListener('click', () => {
+      stopAuto();
       goPrev();
+      scheduleResumeAuto();
     });
 
+    // Resize: keep current position without animation
     window.addEventListener('resize', () => setTransform(false));
 
-    // autoplay (always left)
-    timer = setInterval(() => goNext(true), 3000);
-
+    // Init
     setTransform(false);
+    startAuto();
   })();
 </script>
+
 
 </body>
 </html>
