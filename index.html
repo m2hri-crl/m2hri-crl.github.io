@@ -131,20 +131,32 @@
       object-fit: contain;
     }
 
-    /* ===== Simulation slider: 2x3 grid per slide (bigger gifs) ===== */
+    /* ===================== SIMULATION SLIDER (requested) ===================== */
+
+    /* Constrain slider width so it doesn't spread whole page */
+    .sim-carousel-wrap {
+      max-width: 1000px;   /* adjust if you want: 900–1100px */
+      margin: 0 auto;
+    }
+    #sim-carousel {
+      width: 100%;
+    }
+    #sim-carousel .carousel-container {
+      overflow: hidden; /* prevent overflow */
+    }
+
+    /* 2x3 per slide */
     .sim-slide {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 22px 22px;
       padding: 12px 8px;
     }
-
     .sim-slide img {
       width: 100%;
       display: block;
-      border-radius: var(--radius-rect);
+      border-radius: var(--radius-rect); /* not oval */
     }
-
     .sim-cap {
       margin-top: 10px;
       font-size: 0.95rem;
@@ -152,11 +164,9 @@
       text-align: center;
       color: #111827;
     }
+    .carousel-navigation { opacity: 0.85; }
 
-    /* Keep carousel controls subtle */
-    .carousel-navigation { opacity: 0.7; }
-
-    /* Tables: centered, not full width; scroll on small screens */
+    /* ===================== TABLES ===================== */
     .table-wrap {
       max-width: var(--content-max);
       margin: 0 auto;
@@ -309,36 +319,41 @@
 
     <h3 class="subsection-title">Successful Task Execution Examples</h3>
 
-    <!-- ✅ Now multiple slides (so slider is visible) -->
-    <div id="sim-carousel" class="carousel">
+    <!-- ✅ Slider constrained + real multi-slide + 2x3 per slide -->
+    <div class="sim-carousel-wrap">
+      <div id="sim-carousel" class="carousel">
 
-      <!-- Slide 1 (6 items) -->
-      <div class="item">
-        <div class="sim-slide">
-          <div><img src="./static/images/stack_block.gif" alt="Stack Blocks"><div class="sim-cap">Stack Blocks</div></div>
-          <div><img src="./static/images/pyramid_stacking.gif" alt="Pyramid Stacking"><div class="sim-cap">Pyramid Stacking</div></div>
-          <div><img src="./static/images/put_into_drawer.gif" alt="Put into Drawer"><div class="sim-cap">Put into Drawer</div></div>
-          <div><img src="./static/images/put_into_saucepan.gif" alt="Put into Saucepan"><div class="sim-cap">Put into Saucepan</div></div>
-          <div><img src="./static/images/push_buttons.gif" alt="Push Buttons"><div class="sim-cap">Push Buttons</div></div>
-          <div><img src="./static/images/shell_game.gif" alt="Shell Game"><div class="sim-cap">Shell Game</div></div>
+        <!-- Slide 1 (6 items) -->
+        <div class="item">
+          <div class="sim-slide">
+            <div><img src="./static/images/stack_block.gif" alt="Stack Blocks"><div class="sim-cap">Stack Blocks</div></div>
+            <div><img src="./static/images/pyramid_stacking.gif" alt="Pyramid Stacking"><div class="sim-cap">Pyramid Stacking</div></div>
+            <div><img src="./static/images/put_into_drawer.gif" alt="Put into Drawer"><div class="sim-cap">Put into Drawer</div></div>
+
+            <div><img src="./static/images/put_into_saucepan.gif" alt="Put into Saucepan"><div class="sim-cap">Put into Saucepan</div></div>
+            <div><img src="./static/images/push_buttons.gif" alt="Push Buttons"><div class="sim-cap">Push Buttons</div></div>
+            <div><img src="./static/images/shell_game.gif" alt="Shell Game"><div class="sim-cap">Shell Game</div></div>
+          </div>
         </div>
-      </div>
 
-      <!-- Slide 2 (4 items + 2 empty to keep layout) -->
-      <div class="item">
-        <div class="sim-slide">
-          <div><img src="./static/images/sort_items.gif" alt="Sort Items"><div class="sim-cap">Sort Items</div></div>
-          <div><img src="./static/images/handover_item.gif" alt="Handover Item"><div class="sim-cap">Handover Item</div></div>
-          <div><img src="./static/images/insert_ring.gif" alt="Insert Ring"><div class="sim-cap">Insert Ring</div></div>
-          <div><img src="./static/images/push_box.gif" alt="Push Box"><div class="sim-cap">Push Box</div></div>
-          <div></div>
-          <div></div>
+        <!-- Slide 2 (4 items + wrap first 2 items) -->
+        <div class="item">
+          <div class="sim-slide">
+            <div><img src="./static/images/sort_items.gif" alt="Sort Items"><div class="sim-cap">Sort Items</div></div>
+            <div><img src="./static/images/handover_item.gif" alt="Handover Item"><div class="sim-cap">Handover Item</div></div>
+            <div><img src="./static/images/insert_ring.gif" alt="Insert Ring"><div class="sim-cap">Insert Ring</div></div>
+
+            <div><img src="./static/images/push_box.gif" alt="Push Box"><div class="sim-cap">Push Box</div></div>
+            <div><img src="./static/images/stack_block.gif" alt="Stack Blocks"><div class="sim-cap">Stack Blocks</div></div>
+            <div><img src="./static/images/pyramid_stacking.gif" alt="Pyramid Stacking"><div class="sim-cap">Pyramid Stacking</div></div>
+          </div>
         </div>
-      </div>
 
+      </div>
     </div>
 
     <h3 class="subsection-title">Quantitative Results</h3>
+
     <p class="section-note"><i>Task Success (TS↑), #Subtasks (↑), Subtask Success (STS↑)</i></p>
 
     <div class="table-wrap">
@@ -440,6 +455,7 @@
         </tr>
       </table>
     </div>
+
   </div>
 </section>
 
@@ -454,14 +470,17 @@
   </div>
 </footer>
 
+<!-- Slider init (keep before </body>) -->
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     if (window.bulmaCarousel && bulmaCarousel.attach) {
       bulmaCarousel.attach('#sim-carousel', {
         slidesToScroll: 1,
         slidesToShow: 1,
-        infinite: false,
-        autoplay: false,
+        infinite: true,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        pauseOnHover: true,
         navigation: true,
         pagination: false
       });
