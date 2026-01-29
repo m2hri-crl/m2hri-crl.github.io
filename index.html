@@ -126,8 +126,7 @@
       object-fit: contain;
     }
 
-    /* ===================== SIMULATION SLIDER ===================== */
-    /* 2x3 per slide + explicit horizontal/vertical gaps */
+    /* ===================== SIMULATION SLIDER CONTENT (inside each slide) ===================== */
     .sim-slide {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -147,50 +146,6 @@
       font-weight: 400;
       text-align: center;
       color: #111827;
-    }
-
-    /* ===================== HARD FIX: STOP CAROUSEL FROM SPANNING THE PAGE ===================== */
-    /* Force the whole carousel (and its internals) to obey content-wrap width */
-    .content-wrap #sim-carousel,
-    .content-wrap #sim-carousel.carousel {
-      width: 100% !important;         /* 100% of content-wrap, not viewport */
-      max-width: 100% !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      box-sizing: border-box;
-      position: relative;             /* keep nav inside */
-    }
-
-    .content-wrap #sim-carousel .carousel-container,
-    .content-wrap #sim-carousel .carousel-content,
-    .content-wrap #sim-carousel .carousel-items,
-    .content-wrap #sim-carousel .carousel-item {
-      width: 100% !important;
-      max-width: 100% !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      box-sizing: border-box;
-    }
-
-    .content-wrap #sim-carousel .carousel-container {
-      overflow: hidden !important;    /* prevent track overflow */
-    }
-
-    /* Keep arrows inside the same box width (not page-wide) */
-    .content-wrap #sim-carousel .carousel-navigation {
-      position: absolute !important;
-      left: 0 !important;
-      right: 0 !important;
-      top: 50% !important;
-      transform: translateY(-50%) !important;
-      width: 100% !important;
-      margin: 0 !important;
-      pointer-events: none;           /* only buttons clickable */
-      z-index: 5;
-    }
-    .content-wrap #sim-carousel .carousel-nav-left,
-    .content-wrap #sim-carousel .carousel-nav-right {
-      pointer-events: auto;
     }
 
     /* ===================== TABLES ===================== */
@@ -218,6 +173,64 @@
     }
 
     .muted { color: #6b7280; }
+
+    /* =======================================================================
+       FINAL FIXES (PUT AT END): 
+       (1) Carousel width must match content-wrap (kill any 100vw/negative margin)
+       (2) Add horizontal GAP BETWEEN slides (panels), not inside grid
+       ======================================================================= */
+
+    /* Wrap to force same width as Real-World section */
+    .sim-carousel-wrap{
+      max-width: var(--content-max);
+      margin: 0 auto;
+    }
+
+    /* Kill any full-bleed behavior from template/carousel css */
+    #sim-carousel.carousel{
+      width: 100% !important;         /* 100% of content-wrap */
+      max-width: 100% !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      left: auto !important;
+      right: auto !important;
+      transform: none !important;
+      position: relative !important;
+      box-sizing: border-box !important;
+    }
+
+    #sim-carousel .carousel-container,
+    #sim-carousel .carousel-content{
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: hidden !important;
+      box-sizing: border-box !important;
+    }
+
+    /* Add a visible gap BETWEEN slides */
+    #sim-carousel .carousel-item{
+      padding: 0 18px !important;    /* slide-to-slide gap */
+      box-sizing: border-box !important;
+    }
+
+    /* Ensure nav stays inside the carousel box */
+    #sim-carousel .carousel-navigation{
+      position: absolute !important;
+      left: 0 !important;
+      right: 0 !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      width: 100% !important;
+      margin: 0 !important;
+      z-index: 10 !important;
+      pointer-events: none !important;
+    }
+    #sim-carousel .carousel-nav-left,
+    #sim-carousel .carousel-nav-right{
+      pointer-events: auto !important;
+    }
   </style>
 </head>
 
@@ -346,31 +359,33 @@
 
     <h3 class="subsection-title">Successful Task Execution Examples</h3>
 
-    <!-- Slider: same width as Real-World (both inside content-wrap) -->
-    <div id="sim-carousel" class="carousel">
-      <!-- Slide 1 (2x3) -->
-      <div class="item">
-        <div class="sim-slide">
-          <div><img src="./static/images/stack_block.gif" alt="Stack Blocks"><div class="sim-cap">Stack Blocks</div></div>
-          <div><img src="./static/images/pyramid_stacking.gif" alt="Pyramid Stacking"><div class="sim-cap">Pyramid Stacking</div></div>
-          <div><img src="./static/images/put_into_drawer.gif" alt="Put into Drawer"><div class="sim-cap">Put into Drawer</div></div>
+    <!-- IMPORTANT: wrapped to force same width as Real-World section -->
+    <div class="sim-carousel-wrap">
+      <div id="sim-carousel" class="carousel">
+        <!-- Slide 1 (2x3) -->
+        <div class="item">
+          <div class="sim-slide">
+            <div><img src="./static/images/stack_block.gif" alt="Stack Blocks"><div class="sim-cap">Stack Blocks</div></div>
+            <div><img src="./static/images/pyramid_stacking.gif" alt="Pyramid Stacking"><div class="sim-cap">Pyramid Stacking</div></div>
+            <div><img src="./static/images/put_into_drawer.gif" alt="Put into Drawer"><div class="sim-cap">Put into Drawer</div></div>
 
-          <div><img src="./static/images/put_into_saucepan.gif" alt="Put into Saucepan"><div class="sim-cap">Put into Saucepan</div></div>
-          <div><img src="./static/images/push_buttons.gif" alt="Push Buttons"><div class="sim-cap">Push Buttons</div></div>
-          <div><img src="./static/images/shell_game.gif" alt="Shell Game"><div class="sim-cap">Shell Game</div></div>
+            <div><img src="./static/images/put_into_saucepan.gif" alt="Put into Saucepan"><div class="sim-cap">Put into Saucepan</div></div>
+            <div><img src="./static/images/push_buttons.gif" alt="Push Buttons"><div class="sim-cap">Push Buttons</div></div>
+            <div><img src="./static/images/shell_game.gif" alt="Shell Game"><div class="sim-cap">Shell Game</div></div>
+          </div>
         </div>
-      </div>
 
-      <!-- Slide 2 (wrap 1–2) -->
-      <div class="item">
-        <div class="sim-slide">
-          <div><img src="./static/images/sort_items.gif" alt="Sort Items"><div class="sim-cap">Sort Items</div></div>
-          <div><img src="./static/images/handover_item.gif" alt="Handover Item"><div class="sim-cap">Handover Item</div></div>
-          <div><img src="./static/images/insert_ring.gif" alt="Insert Ring"><div class="sim-cap">Insert Ring</div></div>
+        <!-- Slide 2 (wrap 1–2) -->
+        <div class="item">
+          <div class="sim-slide">
+            <div><img src="./static/images/sort_items.gif" alt="Sort Items"><div class="sim-cap">Sort Items</div></div>
+            <div><img src="./static/images/handover_item.gif" alt="Handover Item"><div class="sim-cap">Handover Item</div></div>
+            <div><img src="./static/images/insert_ring.gif" alt="Insert Ring"><div class="sim-cap">Insert Ring</div></div>
 
-          <div><img src="./static/images/push_box.gif" alt="Push Box"><div class="sim-cap">Push Box</div></div>
-          <div><img src="./static/images/stack_block.gif" alt="Stack Blocks"><div class="sim-cap">Stack Blocks</div></div>
-          <div><img src="./static/images/pyramid_stacking.gif" alt="Pyramid Stacking"><div class="sim-cap">Pyramid Stacking</div></div>
+            <div><img src="./static/images/push_box.gif" alt="Push Box"><div class="sim-cap">Push Box</div></div>
+            <div><img src="./static/images/stack_block.gif" alt="Stack Blocks"><div class="sim-cap">Stack Blocks</div></div>
+            <div><img src="./static/images/pyramid_stacking.gif" alt="Pyramid Stacking"><div class="sim-cap">Pyramid Stacking</div></div>
+          </div>
         </div>
       </div>
     </div>
