@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> VECTOR: Decentralized Task Planning with Verification and Adaptive Execution for Multi-Robot Systems</title>
+  <title>VECTOR: Decentralized Task Planning with Verification and Adaptive Execution for Multi-Robot Systems</title>
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
 
@@ -31,7 +31,10 @@
       --radius-rect: 4px;
     }
 
-    .section { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+    .section {
+      padding-top: 2.5rem;
+      padding-bottom: 2.5rem;
+    }
 
     /* Shared width container */
     .content-wrap {
@@ -48,6 +51,7 @@
       margin-bottom: 0.75rem;
       letter-spacing: -0.02em;
     }
+
     .subsection-title {
       text-align: left;
       font-size: 1.25rem;
@@ -55,6 +59,7 @@
       margin: 1.25rem 0 0.5rem;
       letter-spacing: -0.01em;
     }
+
     .section-note {
       text-align: left;
       color: #6b7280;
@@ -64,12 +69,22 @@
     }
 
     /* Hero/title */
-    .hero { padding: 1.5rem 0; }
+    .hero {
+      padding: 1.5rem 0;
+    }
+
     .hero .title {
       font-size: 2.2rem;
       line-height: 1.15;
       letter-spacing: -0.03em;
       margin-bottom: 0.75rem;
+    }
+
+    .release-note {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #1e3a8a;
+      margin-top: 16px;
     }
 
     /* ===================== TEASER ===================== */
@@ -78,15 +93,20 @@
       margin: 0 auto;
       padding: 0 1rem;
     }
+
     .teaser-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: var(--teaser-gap);
       align-items: start;
     }
+
     @media (max-width: 900px) {
-      .teaser-grid { grid-template-columns: 1fr; }
+      .teaser-grid {
+        grid-template-columns: 1fr;
+      }
     }
+
     .teaser-video {
       width: 100%;
       display: block;
@@ -114,6 +134,7 @@
       padding: 0 10px;
       box-sizing: border-box;
     }
+
     .task-video {
       width: 100%;
       margin-top: 0.55rem;
@@ -131,60 +152,70 @@
       overflow-x: auto;
       padding: 8px 0;
     }
+
     .results-table {
       width: auto;
       margin: 0 auto;
       border-collapse: collapse;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       white-space: nowrap;
     }
-    .results-table th, .results-table td {
-      padding: 6px 10px;
+
+    .results-table th,
+    .results-table td {
+      padding: 7px 10px;
       text-align: center;
       border: 1px solid #e5e7eb;
+      vertical-align: middle;
     }
+
     .results-table th {
       background: #f7f7f7;
       font-weight: 700;
     }
-    .muted { color: #6b7280; }
+
+    .results-table td:first-child,
+    .results-table th:first-child {
+      text-align: left;
+      padding-left: 12px;
+    }
+
+    .muted {
+      color: #6b7280;
+    }
 
     /* ======================================================================
        LOCAL SIMULATION SLIDER (drop-in): fixed width + real gap + good arrows
        ====================================================================== */
 
-    /* Outer slider must NOT clip arrows */
     .sim-slider {
-      width: 100%;              /* EXACTLY matches content-wrap */
+      width: 100%;
       position: relative;
-      overflow: visible;        /* arrows won't be cut */
+      overflow: visible;
       margin-top: 0.75rem;
     }
 
-    /* This clips only the sliding content */
     .sim-viewport {
       overflow: hidden;
     }
 
-    /* Track with real gap between slides */
     .sim-track {
       display: flex;
-      gap: 24px;                /* ✅ gap BETWEEN slides */
+      gap: 24px;
       transition: transform 320ms ease;
       will-change: transform;
     }
 
     .sim-panel {
-      flex: 0 0 100%;           /* one panel visible at a time */
+      flex: 0 0 100%;
       box-sizing: border-box;
     }
 
-    /* 2x3 grid inside each slide */
     .sim-slide {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      column-gap: 24px;         /* ✅ horizontal gap between images */
-      row-gap: 28px;            /* ✅ vertical gap between rows */
+      column-gap: 24px;
+      row-gap: 28px;
       padding: 8px 0;
       box-sizing: border-box;
     }
@@ -203,7 +234,6 @@
       color: #111827;
     }
 
-    /* Circular arrows with thin chevrons (stylish) */
     .sim-arrow {
       position: absolute;
       top: 50%;
@@ -221,8 +251,14 @@
       padding: 0;
       user-select: none;
     }
-    .sim-arrow.left  { left: -22px; }
-    .sim-arrow.right { right: -22px; }
+
+    .sim-arrow.left {
+      left: -22px;
+    }
+
+    .sim-arrow.right {
+      right: -22px;
+    }
 
     .sim-arrow:hover {
       background: #ffffff;
@@ -236,394 +272,396 @@
       border-right: 2px solid #374151;
       display: inline-block;
     }
-    .chev.left  { transform: rotate(-135deg); margin-left: 2px; }
-    .chev.right { transform: rotate(45deg);  margin-right: 2px; }
 
+    .chev.left {
+      transform: rotate(-135deg);
+      margin-left: 2px;
+    }
 
-    .release-note {
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: #1e3a8a;
-      margin-top: 16px;
+    .chev.right {
+      transform: rotate(45deg);
+      margin-right: 2px;
     }
   </style>
 </head>
 
 <body>
 
-<!-- ================= TITLE ================= -->
-<section class="hero">
-  <div class="hero-body">
-    <div class="content-wrap has-text-centered">
-      <h1 class="title">VECTOR: Decentralized Task Planning with Verification and Adaptive Execution for Multi-Robot Systems</h1>
+  <!-- ================= TITLE ================= -->
+  <section class="hero">
+    <div class="hero-body">
+      <div class="content-wrap has-text-centered">
+        <h1 class="title">VECTOR: Decentralized Task Planning with Verification and Adaptive Execution for Multi-Robot Systems</h1>
 
-      <p class="release-note">
-        <span class="icon"><i class="fas fa-code"></i></span>
-        Code and data will be released upon acceptance.
-      </p>
-
-    </div>
-  </div>
-</section>
-
-<!-- ================= INTRO / TEASER ================= -->
-<section class="section">
-  <div class="teaser-wrap">
-    <div class="teaser-grid">
-      <video autoplay muted loop playsinline class="teaser-video">
-        <source src="./static/videos/handover_annotated.mp4" type="video/mp4">
-      </video>
-      <video autoplay muted loop playsinline class="teaser-video">
-        <source src="./static/videos/open_drawer_annotated.mp4" type="video/mp4">
-      </video>
-    </div>
-  </div>
-</section>
-
-<!-- ================= ABSTRACT ================= -->
-<section class="section">
-  <div class="content-wrap">
-    <h2 class="section-title">Abstract</h2>
-    <div class="content has-text-justified">
-        <p>
-        Decentralized multi-robot systems must coordinate robots with heterogeneous capabilities, manage action dependencies, and remain robust to unexpected interruptions, all of which are critical to reliable task completion. However, existing frameworks often overlook robots’ physical and task constraints, execution verification, and coordinated replanning, leaving these challenges largely unaddressed. To address this problem, we propose <b>VECTOR</b>, a decentralized framework that combines constraint-aware peer-to-peer task negotiation, symbolic plan grounding, dependency-based parallel scheduling, and plan verification. Before execution, VECTOR verifies that the combined multi-robot plan will achieve the global task goal. During execution, the system monitors the shared symbolic state and responds to environmental changes through targeted recovery strategies such as motion-level adjustment or decentralized replanning. We evaluate VECTOR on two collaborative tabletop manipulation tasks under four interruption conditions in both simulation and real robot experiments. Our results show that VECTOR achieves an average task success rate of 91%, significantly outperforming existing vision-language planning approaches while maintaining low coordination overhead. These results highlight that combining decentralized coordination with symbolic verification and adaptive execution enables more reliable multi-robot task completion in dynamic environments.
+        <p class="release-note">
+          <span class="icon"><i class="fas fa-code"></i></span>
+          Code and data will be released upon acceptance.
         </p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ================= VECTOR ARCHITECTURE ================= -->
-<section class="section">
-  <div class="content-wrap">
-    <h2 class="section-title">VECTOR Architecture</h2>
-    <p class="section-note">  We propose VECTOR, a decentralized framework that combines constraint-aware peer-to-peer task negotiation, symbolic plan grounding, dependency-based parallel scheduling, and plan verification. </p>
-    <div class="has-text-centered">
-      <img src="./static/images/drive_framework.png" style="max-width: 900px; width: 100%; border-radius: var(--radius-rect);">
-    </div>
-  </div>
-</section>
-
-<!-- ================= REAL-WORLD EXPERIMENTS ================= -->
-<section class="section">
-  <div class="content-wrap">
-    <h2 class="section-title">Real-World Experiments</h2>
-    <p class="section-note">Representative real-robot executions for different tasks.</p>
-
-    <div class="columns is-multiline is-centered is-variable is-4">
-      <div class="column is-one-quarter has-text-centered">
-        <div class="task-cap">Stack the red and yellow blocks on the stacking plane</div>
-        <video autoplay muted loop playsinline controls class="task-video">
-          <source src="./static/videos/stack_blocks.mp4" type="video/mp4">
+  <!-- ================= INTRO / TEASER ================= -->
+  <section class="section">
+    <div class="teaser-wrap">
+      <div class="teaser-grid">
+        <video autoplay muted loop playsinline class="teaser-video">
+          <source src="./static/videos/handover_annotated.mp4" type="video/mp4">
         </video>
-      </div>
-
-      <div class="column is-one-quarter has-text-centered">
-        <div class="task-cap">Put the red block on the drawer</div>
-        <video autoplay muted loop playsinline controls class="task-video">
-          <source src="./static/videos/open_drawer.mp4" type="video/mp4">
-        </video>
-      </div>
-
-      <div class="column is-one-quarter has-text-centered">
-        <div class="task-cap">Handover the green block to the other robot</div>
-        <video autoplay muted loop playsinline controls class="task-video">
-          <source src="./static/videos/handover_item.mp4" type="video/mp4">
-        </video>
-      </div>
-
-      <div class="column is-one-quarter has-text-centered">
-        <div class="task-cap">Sort the green and yellow blocks on the trays</div>
-        <video autoplay muted loop playsinline controls class="task-video">
-          <source src="./static/videos/sort_items.mp4" type="video/mp4">
+        <video autoplay muted loop playsinline class="teaser-video">
+          <source src="./static/videos/open_drawer_annotated.mp4" type="video/mp4">
         </video>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ================= SIMULATION RESULTS ================= -->
-<section class="section">
-  <div class="content-wrap">
-    <h2 class="section-title">Simulation Results</h2>
-
-    <h3 class="subsection-title">Simulation in RLBench</h3>
-    <p class="muted" style="margin-bottom: 0.75rem;">CoRL-Bench task suite used for evaluation.</p>
-    <div class="has-text-centered" style="margin-bottom: 1.25rem;">
-      <img src="./static/images/CoRL-Bench.png" style="max-width: 900px; width: 100%; border-radius: var(--radius-rect);">
+  <!-- ================= ABSTRACT ================= -->
+  <section class="section">
+    <div class="content-wrap">
+      <h2 class="section-title">Abstract</h2>
+      <div class="content has-text-justified">
+        <p>
+          Decentralized multi-robot systems must coordinate robots with heterogeneous capabilities, manage action dependencies, and remain robust to unexpected interruptions, all of which are critical to reliable task completion. However, existing frameworks often overlook robots’ physical and task constraints, execution verification, and coordinated replanning, leaving these challenges largely unaddressed. To address this problem, we propose <b>VECTOR</b>, a decentralized framework that combines constraint-aware peer-to-peer task negotiation, symbolic plan grounding, dependency-based parallel scheduling, and plan verification. Before execution, VECTOR verifies that the combined multi-robot plan will achieve the global task goal. During execution, the system monitors the shared symbolic state and responds to environmental changes through targeted recovery strategies such as motion-level adjustment or decentralized replanning. We evaluate VECTOR on two collaborative tabletop manipulation tasks under four interruption conditions in both simulation and real robot experiments. Our results show that VECTOR achieves an average task success rate of 91%, significantly outperforming existing vision-language planning approaches while maintaining low coordination overhead. These results highlight that combining decentralized coordination with symbolic verification and adaptive execution enables more reliable multi-robot task completion in dynamic environments.
+        </p>
+      </div>
     </div>
+  </section>
 
-    <h3 class="subsection-title">Successful Task Execution Examples</h3>
+  <!-- ================= VECTOR ARCHITECTURE ================= -->
+  <section class="section">
+    <div class="content-wrap">
+      <h2 class="section-title">VECTOR Architecture</h2>
+      <p class="section-note">
+        We propose VECTOR, a decentralized framework that combines constraint-aware peer-to-peer task negotiation, symbolic plan grounding, dependency-based parallel scheduling, and plan verification.
+      </p>
+      <div class="has-text-centered">
+        <img src="./static/images/drive_framework.png" style="max-width: 900px; width: 100%; border-radius: var(--radius-rect);" alt="VECTOR framework">
+      </div>
+    </div>
+  </section>
 
-    <!-- LOCAL SLIDER (drop-in) -->
-    <div class="sim-slider" id="sim-slider">
-      <button class="sim-arrow left" id="sim-prev" aria-label="Previous"><span class="chev left"></span></button>
-      <button class="sim-arrow right" id="sim-next" aria-label="Next"><span class="chev right"></span></button>
+  <!-- ================= REAL-WORLD EXPERIMENTS ================= -->
+  <section class="section">
+    <div class="content-wrap">
+      <h2 class="section-title">Real-World Experiments</h2>
+      <p class="section-note">Representative real-robot executions for different tasks.</p>
 
-      <div class="sim-viewport">
-        <div class="sim-track" id="sim-track">
-          <!-- Slide 1 (6 items) -->
-          <div class="sim-panel">
-            <div class="sim-slide">
-              <div><img src="./static/images/stack_block.gif" alt="Stacking blocks"><div class="sim-cap">Stacking blocks</div></div>
-              <div><img src="./static/images/pyramid_stacking.gif" alt="Stacking a pyramid"><div class="sim-cap">Stacking a pyramid</div></div>
-              <div><img src="./static/images/put_into_drawer.gif" alt="Putting in the drawer"><div class="sim-cap">Putting in the drawer</div></div>
+      <div class="columns is-multiline is-centered is-variable is-4">
+        <div class="column is-one-quarter has-text-centered">
+          <div class="task-cap">Stack the red and yellow blocks on the stacking plane</div>
+          <video autoplay muted loop playsinline controls class="task-video">
+            <source src="./static/videos/stack_blocks.mp4" type="video/mp4">
+          </video>
+        </div>
 
-              <div><img src="./static/images/put_into_saucepan.gif" alt="Putting on the saucepan"><div class="sim-cap">Putting on the saucepan</div></div>
-              <div><img src="./static/images/push_buttons.gif" alt="Pushing buttons"><div class="sim-cap">Pushing buttons</div></div>
-              <div><img src="./static/images/shell_game.gif" alt="The shell game"><div class="sim-cap">The shell game</div></div>
-            </div>
-          </div>
+        <div class="column is-one-quarter has-text-centered">
+          <div class="task-cap">Put the red block on the drawer</div>
+          <video autoplay muted loop playsinline controls class="task-video">
+            <source src="./static/videos/open_drawer.mp4" type="video/mp4">
+          </video>
+        </div>
 
-          <!-- Slide 2 (4 + wrap 2) -->
-          <div class="sim-panel">
-            <div class="sim-slide">
-              <div><img src="./static/images/sort_items.gif" alt="Sorting items"><div class="sim-cap">Sorting items</div></div>
-              <div><img src="./static/images/handover_item.gif" alt="Handing over an item"><div class="sim-cap">Handing over an item</div></div>
-              <div><img src="./static/images/insert_ring.gif" alt="Inserting rings"><div class="sim-cap">Inserting rings</div></div>
+        <div class="column is-one-quarter has-text-centered">
+          <div class="task-cap">Handover the green block to the other robot</div>
+          <video autoplay muted loop playsinline controls class="task-video">
+            <source src="./static/videos/handover_item.mp4" type="video/mp4">
+          </video>
+        </div>
 
-              <div><img src="./static/images/push_box.gif" alt="Pushing the box to a target"><div class="sim-cap">Pushing a box to a target</div></div>
-              <div><img src="./static/images/stack_block.gif" alt="Stacking blocks"><div class="sim-cap">Stacking blocks</div></div>
-              <div><img src="./static/images/pyramid_stacking.gif" alt="Stacking a pyramid"><div class="sim-cap">Stacking a pyramid </div></div>
-            </div>
-          </div>
-
+        <div class="column is-one-quarter has-text-centered">
+          <div class="task-cap">Sort the green and yellow blocks on the trays</div>
+          <video autoplay muted loop playsinline controls class="task-video">
+            <source src="./static/videos/sort_items.mp4" type="video/mp4">
+          </video>
         </div>
       </div>
     </div>
+  </section>
 
-    <h3 class="subsection-title">Quantitative Results</h3>
-    <p class="section-note"><i>Task Success (TS↑), #Subtasks (↑), Subtask Success (STS↑)</i></p>
+  <!-- ================= SIMULATION RESULTS ================= -->
+  <section class="section">
+    <div class="content-wrap">
+      <h2 class="section-title">Simulation Results</h2>
 
-    <div class="table-wrap">
+      <h3 class="subsection-title">Simulation in RLBench</h3>
+      <p class="muted" style="margin-bottom: 0.75rem;">CoRL-Bench task suite used for evaluation.</p>
+      <div class="has-text-centered" style="margin-bottom: 1.25rem;">
+        <img src="./static/images/CoRL-Bench.png" style="max-width: 900px; width: 100%; border-radius: var(--radius-rect);" alt="CoRL-Bench">
+      </div>
 
-      <!-- TABLE 1 -->
-      <table class="results-table">
-        <tr>
-          <th rowspan="2">Model</th>
-          <th colspan="6">Sequential Coordination</th>
-          <th colspan="9">Coupled Interaction</th>
-        </tr>
-        <tr>
-          <th colspan="3">Stacking blocks</th>
-          <th colspan="3">Stacking a pyramid</th>
-          <th colspan="3">Putting on the saucepan</th>
-          <th colspan="3">Pushing the box to a target</th>
-          <th colspan="3">Putting in the drawer</th>
-        </tr>
-        <tr>
-          <th></th>
-          <th>TS</th><th>#ST</th><th>STS</th>
-          <th>TS</th><th>#ST</th><th>STS</th>
-          <th>TS</th><th>#ST</th><th>STS</th>
-          <th>TS</th><th>#ST</th><th>STS</th>
-          <th>TS</th><th>#ST</th><th>STS</th>
-        </tr>
-        <tr>
-          <td><b>Centralized Planner (Oracle)</b></td>
-          <td><b>0.80</b></td><td>10.9</td><td><b>1.00</b></td>
-          <td><b>0.60</b></td><td>11.0</td><td><b>0.90</b></td>
-          <td><b>0.80</b></td><td><b>8.0</b></td><td><b>0.93</b></td>
-          <td><b>1.00</b></td><td><b>16.0</b></td><td><b>1.00</b></td>
-          <td><b>1.00</b></td><td><b>10.0</b></td><td><b>1.00</b></td>
-        </tr>
-        <tr>
-          <td>VoxPoser</td>
-          <td>0.00</td><td>10.0</td><td>0.68</td>
-          <td>0.00</td><td><b>11.8</b></td><td>0.36</td>
-          <td>0.50</td><td>7.0</td><td>0.79</td>
-          <td>0.00</td><td>11.2</td><td>0.76</td>
-          <td>0.00</td><td>9.0</td><td>0.55</td>
-        </tr>
-        <tr>
-          <td><b>PRISM (Ours)</b></td>
-          <td><b>0.80</b></td><td><b>11.0</b></td><td>0.94</td>
-          <td><b>0.60</b></td><td>11.0</td><td>0.83</td>
-          <td>0.70</td><td><b>8.0</b></td><td>0.81</td>
-          <td>0.70</td><td>14.0</td><td>0.72</td>
-          <td>0.50</td><td>8.0</td><td>0.82</td>
-        </tr>
-      </table>
+      <h3 class="subsection-title">Successful Task Execution Examples</h3>
 
-      <br>
+      <div class="sim-slider" id="sim-slider">
+        <button class="sim-arrow left" id="sim-prev" aria-label="Previous">
+          <span class="chev left"></span>
+        </button>
+        <button class="sim-arrow right" id="sim-next" aria-label="Next">
+          <span class="chev right"></span>
+        </button>
 
-      <!-- TABLE 2 -->
-      <table class="results-table">
-        <tr>
-          <th rowspan="2">Model</th>
-          <th colspan="6">Parallel Coordination</th>
-          <th colspan="9">Behavior-Aware Reasoning</th>
-        </tr>
-        <tr>
-          <th colspan="3">Sorting items</th>
-          <th colspan="3">Pushing buttons</th>
-          <th colspan="3">Inserting rings</th>
-          <th colspan="3">The shell game</th>
-          <th colspan="3">Handing over an item</th>
-        </tr>
-        <tr>
-          <th></th>
-          <th>TS</th><th>#ST</th><th>STS</th>
-          <th>TS</th><th>#ST</th><th>STS</th>
-          <th>TS</th><th>#ST</th><th>STS</th>
-          <th>TS</th><th>#ST</th><th>STS</th>
-          <th>TS</th><th>#ST</th><th>STS</th>
-        </tr>
-        <tr>
-          <td><b>Centralized Planner (Oracle)</b></td>
-          <td><b>0.90</b></td><td>10.0</td><td><b>0.99</b></td>
-          <td><b>1.00</b></td><td><b>8.0</b></td><td><b>1.00</b></td>
-          <td><b>1.00</b></td><td>8.0</td><td><b>1.00</b></td>
-          <td><b>0.90</b></td><td>9.4</td><td><b>0.98</b></td>
-          <td><b>1.00</b></td><td><b>12.0</b></td><td><b>1.00</b></td>
-        </tr>
-        <tr>
-          <td>VoxPoser</td>
-          <td>0.40</td><td><b>10.2</b></td><td>0.74</td>
-          <td>0.30</td><td>8.0</td><td>0.40</td>
-          <td>0.00</td><td>12.8</td><td>0.13</td>
-          <td>0.00</td><td><b>14.5</b></td><td>0.58</td>
-          <td>0.00</td><td>10.0</td><td>0.46</td>
-        </tr>
-        <tr>
-          <td><b>PRISM (Ours)</b></td>
-          <td><b>0.90</b></td><td>10.0</td><td>0.98</td>
-          <td><b>1.00</b></td><td><b>8.0</b></td><td><b>1.00</b></td>
-          <td>0.60</td><td><b>15.0</b></td><td>0.95</td>
-          <td>0.70</td><td>13.0</td><td>0.96</td>
-          <td>0.70</td><td><b>12.0</b></td><td>0.91</td>
-        </tr>
-      </table>
+        <div class="sim-viewport">
+          <div class="sim-track" id="sim-track">
+            <!-- Slide 1 -->
+            <div class="sim-panel">
+              <div class="sim-slide">
+                <div>
+                  <img src="./static/images/stack_block.gif" alt="Stacking blocks">
+                  <div class="sim-cap">Stacking blocks</div>
+                </div>
+                <div>
+                  <img src="./static/images/pyramid_stacking.gif" alt="Stacking a pyramid">
+                  <div class="sim-cap">Stacking a pyramid</div>
+                </div>
+                <div>
+                  <img src="./static/images/put_into_drawer.gif" alt="Putting in the drawer">
+                  <div class="sim-cap">Putting in the drawer</div>
+                </div>
 
-    </div>
-  </div>
-</section>
+                <div>
+                  <img src="./static/images/put_into_saucepan.gif" alt="Putting on the saucepan">
+                  <div class="sim-cap">Putting on the saucepan</div>
+                </div>
+                <div>
+                  <img src="./static/images/push_buttons.gif" alt="Pushing buttons">
+                  <div class="sim-cap">Pushing buttons</div>
+                </div>
+                <div>
+                  <img src="./static/images/shell_game.gif" alt="The shell game">
+                  <div class="sim-cap">The shell game</div>
+                </div>
+              </div>
+            </div>
 
-<footer class="footer">
-  <div class="content-wrap">
-    <div class="content has-text-centered">
-      <p>
-        This website template is adapted from the
-        <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page.
+            <!-- Slide 2 -->
+            <div class="sim-panel">
+              <div class="sim-slide">
+                <div>
+                  <img src="./static/images/sort_items.gif" alt="Sorting items">
+                  <div class="sim-cap">Sorting items</div>
+                </div>
+                <div>
+                  <img src="./static/images/handover_item.gif" alt="Handing over an item">
+                  <div class="sim-cap">Handing over an item</div>
+                </div>
+                <div>
+                  <img src="./static/images/insert_ring.gif" alt="Inserting rings">
+                  <div class="sim-cap">Inserting rings</div>
+                </div>
+
+                <div>
+                  <img src="./static/images/push_box.gif" alt="Pushing a box to a target">
+                  <div class="sim-cap">Pushing a box to a target</div>
+                </div>
+                <div>
+                  <img src="./static/images/stack_block.gif" alt="Stacking blocks">
+                  <div class="sim-cap">Stacking blocks</div>
+                </div>
+                <div>
+                  <img src="./static/images/pyramid_stacking.gif" alt="Stacking a pyramid">
+                  <div class="sim-cap">Stacking a pyramid</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="subsection-title">Quantitative Results</h3>
+      <p class="section-note">
+        <i>
+          Performance summary on two collaborative robot tasks across four interruption conditions.
+          TS = Task Success Rate (↑), STS = Subtask Success Rate (↑)
+        </i>
       </p>
+
+      <div class="table-wrap">
+        <table class="results-table">
+          <tr>
+            <th rowspan="3">Model</th>
+            <th colspan="8">Sorting items</th>
+            <th colspan="8">Putting in the drawer</th>
+          </tr>
+          <tr>
+            <th colspan="2">W/O Interruption</th>
+            <th colspan="2">Benign</th>
+            <th colspan="2">Supportive</th>
+            <th colspan="2">Obstructive</th>
+
+            <th colspan="2">W/O Interruption</th>
+            <th colspan="2">Benign</th>
+            <th colspan="2">Supportive</th>
+            <th colspan="2">Obstructive</th>
+          </tr>
+          <tr>
+            <th>TS</th><th>STS</th>
+            <th>TS</th><th>STS</th>
+            <th>TS</th><th>STS</th>
+            <th>TS</th><th>STS</th>
+
+            <th>TS</th><th>STS</th>
+            <th>TS</th><th>STS</th>
+            <th>TS</th><th>STS</th>
+            <th>TS</th><th>STS</th>
+          </tr>
+
+          <tr>
+            <td>VLM-Planner (w/o grounding)</td>
+            <td>0.00</td><td>0.29</td>
+            <td>0.00</td><td>0.30</td>
+            <td>0.00</td><td>0.28</td>
+            <td>0.00</td><td>0.30</td>
+
+            <td>0.00</td><td>0.52</td>
+            <td>0.00</td><td>0.44</td>
+            <td>0.00</td><td>0.46</td>
+            <td>0.00</td><td>0.46</td>
+          </tr>
+
+          <tr>
+            <td>VLM-Planner (w grounding)</td>
+            <td>0.22</td><td>0.77</td>
+            <td>0.33</td><td>0.56</td>
+            <td>0.38</td><td>0.64</td>
+            <td>0.29</td><td>0.62</td>
+
+            <td>0.20</td><td>0.69</td>
+            <td>0.40</td><td>0.78</td>
+            <td>0.60</td><td>0.88</td>
+            <td>0.50</td><td>0.60</td>
+          </tr>
+
+          <tr>
+            <td><b>VECTOR</b></td>
+            <td><b>0.90</b></td><td><b>0.97</b></td>
+            <td><b>0.80</b></td><td><b>0.67</b></td>
+            <td><b>1.00</b></td><td><b>1.00</b></td>
+            <td><b>0.90</b></td><td><b>0.88</b></td>
+
+            <td><b>0.90</b></td><td><b>0.92</b></td>
+            <td><b>0.90</b></td><td><b>0.96</b></td>
+            <td><b>1.00</b></td><td><b>1.00</b></td>
+            <td><b>0.90</b></td><td><b>0.94</b></td>
+          </tr>
+        </table>
+      </div>
     </div>
-  </div>
-</footer>
+  </section>
 
-<!-- ================= LOCAL SLIDER JS ================= -->
-<script>
-  (function () {
-    const slider = document.getElementById('sim-slider');
-    const track = document.getElementById('sim-track');
-    const prevBtn = document.getElementById('sim-prev');
-    const nextBtn = document.getElementById('sim-next');
+  <footer class="footer">
+    <div class="content-wrap">
+      <div class="content has-text-centered">
+        <p>
+          This website template is adapted from the
+          <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page.
+        </p>
+      </div>
+    </div>
+  </footer>
 
-    if (!slider || !track || !prevBtn || !nextBtn) return;
+  <!-- ================= LOCAL SLIDER JS ================= -->
+  <script>
+    (function () {
+      const slider = document.getElementById('sim-slider');
+      const track = document.getElementById('sim-track');
+      const prevBtn = document.getElementById('sim-prev');
+      const nextBtn = document.getElementById('sim-next');
 
-    const GAP = 24;          // must match .sim-track gap in CSS
-    const SPEED_MS = 380;    // smooth transition speed
-    const AUTO_MS = 4000;    // ✅ autoplay interval (increase/decrease)
-    const RESUME_AFTER_MS = 4000; // ✅ after click, wait before resuming autoplay
+      if (!slider || !track || !prevBtn || !nextBtn) return;
 
-    // Original panels
-    const originalPanels = Array.from(track.querySelectorAll('.sim-panel'));
-    const realCount = originalPanels.length;
-    if (realCount < 2) return;
+      const GAP = 24;
+      const SPEED_MS = 380;
+      const AUTO_MS = 4000;
+      const RESUME_AFTER_MS = 4000;
 
-    // Clone last to front and first to end (seamless infinite)
-    const firstClone = originalPanels[0].cloneNode(true);
-    const lastClone  = originalPanels[realCount - 1].cloneNode(true);
-    firstClone.classList.add('is-clone');
-    lastClone.classList.add('is-clone');
+      const originalPanels = Array.from(track.querySelectorAll('.sim-panel'));
+      const realCount = originalPanels.length;
+      if (realCount < 2) return;
 
-    track.insertBefore(lastClone, track.firstChild);
-    track.appendChild(firstClone);
+      const firstClone = originalPanels[0].cloneNode(true);
+      const lastClone = originalPanels[realCount - 1].cloneNode(true);
+      firstClone.classList.add('is-clone');
+      lastClone.classList.add('is-clone');
 
-    // Start at first REAL slide (index 1, because 0 is lastClone)
-    let idx = 1;
-    let animating = false;
+      track.insertBefore(lastClone, track.firstChild);
+      track.appendChild(firstClone);
 
-    function setTransform(animate) {
-      const w = slider.clientWidth;
-      track.style.transition = animate ? `transform ${SPEED_MS}ms ease` : 'none';
-      track.style.transform = `translateX(${-idx * (w + GAP)}px)`;
-    }
+      let idx = 1;
+      let animating = false;
 
-    function goNext() {
-      if (animating) return;
-      animating = true;
-      idx += 1;
-      setTransform(true);
-    }
-
-    function goPrev() {
-      if (animating) return;
-      animating = true;
-      idx -= 1;
-      setTransform(true);
-    }
-
-    // Snap after reaching clones (no visual jump)
-    track.addEventListener('transitionend', () => {
-      animating = false;
-
-      // onto firstClone
-      if (idx === realCount + 1) {
-        idx = 1;
-        setTransform(false);
+      function setTransform(animate) {
+        const w = slider.clientWidth;
+        track.style.transition = animate ? `transform ${SPEED_MS}ms ease` : 'none';
+        track.style.transform = `translateX(${-idx * (w + GAP)}px)`;
       }
 
-      // onto lastClone
-      if (idx === 0) {
-        idx = realCount;
-        setTransform(false);
+      function goNext() {
+        if (animating) return;
+        animating = true;
+        idx += 1;
+        setTransform(true);
       }
-    });
 
-    // ---- Autoplay control (click overrides autoplay) ----
-    let autoTimer = null;
-    let resumeTimer = null;
+      function goPrev() {
+        if (animating) return;
+        animating = true;
+        idx -= 1;
+        setTransform(true);
+      }
 
-    function stopAuto() {
-      if (autoTimer) clearInterval(autoTimer);
-      autoTimer = null;
-    }
+      track.addEventListener('transitionend', () => {
+        animating = false;
 
-    function startAuto() {
-      if (autoTimer) clearInterval(autoTimer);
-      autoTimer = setInterval(() => {
-        goNext(); // always slides left
-      }, AUTO_MS);
-    }
+        if (idx === realCount + 1) {
+          idx = 1;
+          setTransform(false);
+        }
 
-    function scheduleResumeAuto() {
-      if (resumeTimer) clearTimeout(resumeTimer);
-      resumeTimer = setTimeout(() => {
-        startAuto();
-      }, RESUME_AFTER_MS);
-    }
+        if (idx === 0) {
+          idx = realCount;
+          setTransform(false);
+        }
+      });
 
-    // Buttons: click cancels autoplay immediately, does one move, then resume later
-    nextBtn.addEventListener('click', () => {
-      stopAuto();
-      goNext();
-      scheduleResumeAuto();
-    });
+      let autoTimer = null;
+      let resumeTimer = null;
 
-    prevBtn.addEventListener('click', () => {
-      stopAuto();
-      goPrev();
-      scheduleResumeAuto();
-    });
+      function stopAuto() {
+        if (autoTimer) clearInterval(autoTimer);
+        autoTimer = null;
+      }
 
-    // Resize: keep current position without animation
-    window.addEventListener('resize', () => setTransform(false));
+      function startAuto() {
+        if (autoTimer) clearInterval(autoTimer);
+        autoTimer = setInterval(() => {
+          goNext();
+        }, AUTO_MS);
+      }
 
-    // Init
-    setTransform(false);
-    startAuto();
-  })();
-</script>
+      function scheduleResumeAuto() {
+        if (resumeTimer) clearTimeout(resumeTimer);
+        resumeTimer = setTimeout(() => {
+          startAuto();
+        }, RESUME_AFTER_MS);
+      }
 
+      nextBtn.addEventListener('click', () => {
+        stopAuto();
+        goNext();
+        scheduleResumeAuto();
+      });
+
+      prevBtn.addEventListener('click', () => {
+        stopAuto();
+        goPrev();
+        scheduleResumeAuto();
+      });
+
+      window.addEventListener('resize', () => setTransform(false));
+
+      setTransform(false);
+      startAuto();
+    })();
+  </script>
 
 </body>
 </html>
